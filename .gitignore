@@ -347,3 +347,12 @@ healthchecksdb
 
 # Backup folder for Package Reference Convert tool in Visual Studio 2017
 MigrationBackup/
+
+.idea/
+
+.mono/
+
+.import/
+
+export.cfg
+export_presets.cfg
