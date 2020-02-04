@@ -9,23 +9,37 @@ var did_move := false
 export var start_move_speed := 200.0
 var move_speed := start_move_speed
 export var accelerate_speed := 1.01
-export var max_speed = 250.0
+export var max_speed := 250.0
 
 var last_position: Vector2
 
-func _physics_process(delta):
+signal attack(position)
+
+func _get_input() -> Vector2:
+	var move_direction := Vector2(0, 0)
+	
+	if Input.is_action_just_pressed("attack"):
+		emit_signal("attack", position)
+	
+	if Input.is_action_pressed("PlayerUp"):
+		move_direction += Vector2(0, -1)
+	
+	if Input.is_action_pressed("PlayerDown"):
+		move_direction += Vector2(0, 1)
+	
+	if Input.is_action_pressed("PlayerLeft"):
+		move_direction += Vector2(-1, 0)
+	
+	if Input.is_action_pressed("PlayerRight"):
+		move_direction += Vector2(1, 0)
+	
+	return move_direction
+
+func _physics_process(delta: float) -> void:
 	if not did_move:
 		move_speed = start_move_speed
 	
-	var move_direction := Vector2(0, 0)
-	if Input.is_action_pressed("PlayerUp"):
-		move_direction += Vector2(0, -1)
-	if Input.is_action_pressed("PlayerDown"):
-		move_direction += Vector2(0, 1)
-	if Input.is_action_pressed("PlayerLeft"):
-		move_direction += Vector2(-1, 0)
-	if Input.is_action_pressed("PlayerRight"):
-		move_direction += Vector2(1, 0)
+	var move_direction = _get_input()
 	
 	if move_direction != Vector2(0, 0):
 		move_and_collide(move_direction * move_speed * delta)
@@ -38,7 +52,7 @@ func _physics_process(delta):
 	else:
 		did_move = false
 
-func wall_entered():
+func wall_entered() -> void:
 	self.position = last_position
 	did_move = false
 
