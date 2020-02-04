@@ -6,10 +6,10 @@ func _ready():
 
 var did_move := false
 
-export var start_move_speed := 1.5
+export var start_move_speed := 200.0
 var move_speed := start_move_speed
-export var accelerate_speed := 1.1
-export var max_speed = 4.0
+export var accelerate_speed := 1.01
+export var max_speed = 250.0
 
 var last_position: Vector2
 
@@ -28,7 +28,7 @@ func _physics_process(delta):
 		move_direction += Vector2(1, 0)
 	
 	if move_direction != Vector2(0, 0):
-		move_and_collide(move_direction * move_speed)
+		move_and_collide(move_direction * move_speed * delta)
 		did_move = true
 		if move_speed * accelerate_speed > max_speed:
 			move_speed = max_speed
