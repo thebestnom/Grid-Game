@@ -9,7 +9,7 @@ enum TILES {blocking, grid, attack}
 func _ready() -> void:
 	__init_grid()
 	__init_childrens()
-			
+
 func __init_grid() -> void:
 	for i in range(grid_size.x):
 		$GridTileMap.set_cell(i + 1, 0, TILES.blocking)
@@ -21,8 +21,7 @@ func __init_grid() -> void:
 	for i in range(grid_size.x):
 		for j in range(grid_size.y):
 			$GridTileMap.set_cell(i + 1, j + 1, TILES.grid)
-	
-		
+
 
 func __init_childrens() -> void:
 	grid_charecters = get_children()
@@ -36,7 +35,7 @@ func __init_childrens() -> void:
 				$GridTileMap.map_to_world(grid_charecter.starting_grid_position + Vector2(1, 1)) \
 					+ $GridTileMap.cell_size / 2
 			grid_charecter.connect("attack", self, "_attack_listener", [grid_charecter])
-					
+
 func _attack_listener(position: Vector2, _grid_charecter: GridCharecter) -> void:
 	var cell_to_attack: Vector2 = $GridTileMap.world_to_map(position)
 	var cell_type: int = $GridTileMap.get_cellv(cell_to_attack)
@@ -45,3 +44,6 @@ func _attack_listener(position: Vector2, _grid_charecter: GridCharecter) -> void
 		yield(get_tree().create_timer(1.0), "timeout")
 		$GridTileMap.set_cellv(cell_to_attack, TILES.grid)	
 
+func get_gird_area_position(grid_position: Vector2) -> Vector2:
+	assert(grid_position.x < grid_size.x || grid_position.y < grid_size.y)
+	return $GridTileMap.map_to_world(grid_position)

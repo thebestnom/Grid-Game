@@ -9,12 +9,18 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Area2D",
+"class": "Attack",
+"language": "GDScript",
+"path": "res://Attacks/Attack.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "GridCharecter",
 "language": "GDScript",
 "path": "res://Charecters/GridCharecter.gd"
 } ]
 _global_script_class_icons={
+"Attack": "",
 "GridCharecter": ""
 }
 

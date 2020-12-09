@@ -9,3 +9,4 @@ position = Vector2( 25, 25 )
 [node name="Grid" parent="." instance=ExtResource( 1 )]
 
 [node name="Player" parent="Grid" instance=ExtResource( 2 )]
+starting_grid_position = Vector2( 5, 5 )
